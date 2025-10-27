@@ -1,20 +1,18 @@
 services:
   - type: web
     name: browser-mcp-agent
-    env: python
-    region: Ohio 
+    runtime: python
+    region: Ohio
     plan: free
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
-      python -m playwright install
-
-      
-    startCommand: streamlit run main.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+      python -m playwright install --with-deps chromium
+    startCommand: streamlit run main.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: GOOGLE_API_KEY
-        sync: false  # You'll add this manually in Render dashboard
+        sync: false
       - key: PLAYWRIGHT_BROWSERS_PATH
-        value: /opt/render/.cache/ms-playwright
+        value: /opt/render/project/.cache/ms-playwright
