@@ -7,7 +7,8 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
-      python -m playwright 
+      python -m playwright install
+
       
     startCommand: streamlit run main.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
